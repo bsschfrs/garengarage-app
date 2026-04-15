@@ -16,7 +16,7 @@ interface Creation {
   created_at: string;
   like_count: number;
   user_liked: boolean;
-  profiles: { full_name: string } | null;
+  author_name?: string;
 }
 
 export default function CommunityCreations() {
