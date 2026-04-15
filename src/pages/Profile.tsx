@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Shield, LogOut, Calendar, Lightbulb, Image } from "lucide-react";
+import { Shield, LogOut, Calendar, Lightbulb, Image, KeyRound } from "lucide-react";
+import ChangePasswordDialog from "@/components/profile/ChangePasswordDialog";
 
 export default function Profile() {
   const { user, isAdmin, signOut, loading } = useAuth();
