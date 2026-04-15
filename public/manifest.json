@@ -1,0 +1,20 @@
+{
+  "name": "De Garengarage",
+  "short_name": "Garengarage",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#DCCCC0",
+  "theme_color": "#DCCCC0",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
