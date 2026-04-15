@@ -190,7 +190,7 @@ export default function Admin() {
               <div className="space-y-2">
                 {registrations.map((reg) => (
                   <div key={reg.id} className="flex items-center justify-between rounded-lg bg-secondary/50 p-3">
-                    <span className="text-sm">{reg.profiles?.full_name || "Onbekend"}</span>
+                    <span className="text-sm">{reg.author_name || "Onbekend"}</span>
                     <button
                       onClick={() => toggleAttendance(reg.id, reg.attended)}
                       className={`flex items-center gap-1 text-xs font-medium ${reg.attended ? "text-green-600" : "text-muted-foreground"}`}
