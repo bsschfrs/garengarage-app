@@ -12,16 +12,16 @@ interface Question {
   title: string;
   body: string;
   user_id: string;
+  author_name?: string;
   created_at: string;
   reply_count: number;
-  profiles: { full_name: string } | null;
 }
 
 interface Reply {
   id: string;
   body: string;
   created_at: string;
-  profiles: { full_name: string } | null;
+  author_name?: string;
 }
 
 export default function CommunityQuestions() {
