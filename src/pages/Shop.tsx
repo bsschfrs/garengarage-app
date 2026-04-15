@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
+import { CartDrawer } from "@/components/shop/CartDrawer";
 
 const categories = [
   {
@@ -17,7 +18,10 @@ const categories = [
 export default function Shop() {
   return (
     <div className="animate-fade-in space-y-6">
-      <h1 className="text-lg font-semibold">Shop</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">Shop</h1>
+        <CartDrawer />
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {categories.map((cat) => (
@@ -33,12 +37,6 @@ export default function Shop() {
             <p className="text-sm text-muted-foreground mt-1">{cat.description}</p>
           </Link>
         ))}
-      </div>
-
-      <div className="rounded-xl bg-muted/50 p-4 text-center">
-        <p className="text-sm text-muted-foreground">
-          De shop wordt binnenkort gekoppeld aan Shopify voor live producten.
-        </p>
       </div>
     </div>
   );
