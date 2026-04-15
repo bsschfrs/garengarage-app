@@ -83,6 +83,19 @@ export default function Profile() {
         Je hebt al {attendanceCount} Crochet Mee {attendanceCount === 1 ? "avond" : "avonden"} bijgewoond.
       </p>
 
+      {/* Account security */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide px-1">Account</p>
+        <Button
+          variant="outline"
+          className="w-full justify-start"
+          onClick={() => setShowChangePassword(true)}
+        >
+          <KeyRound className="h-4 w-4 mr-2" />
+          Wachtwoord wijzigen
+        </Button>
+      </div>
+
       {/* Admin link on mobile */}
       {isAdmin && (
         <Button
@@ -99,6 +112,12 @@ export default function Profile() {
         <LogOut className="h-4 w-4 mr-2" />
         Uitloggen
       </Button>
+
+      <ChangePasswordDialog
+        open={showChangePassword}
+        onOpenChange={setShowChangePassword}
+        userEmail={user.email || ""}
+      />
     </div>
   );
 }
