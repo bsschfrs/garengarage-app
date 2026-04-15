@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Shield, LogOut, Calendar, Lightbulb, Image } from "lucide-react";
+import { Shield, LogOut, Calendar, Lightbulb, Image, KeyRound } from "lucide-react";
+import ChangePasswordDialog from "@/components/profile/ChangePasswordDialog";
 
 export default function Profile() {
   const { user, isAdmin, signOut, loading } = useAuth();
   const navigate = useNavigate();
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [profile, setProfile] = useState<{ full_name: string; avatar_url: string | null } | null>(null);
   const [attendanceCount, setAttendanceCount] = useState(0);
   const [proposalCount, setProposalCount] = useState(0);
@@ -81,6 +83,19 @@ export default function Profile() {
         Je hebt al {attendanceCount} Crochet Mee {attendanceCount === 1 ? "avond" : "avonden"} bijgewoond.
       </p>
 
+      {/* Account security */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide px-1">Account</p>
+        <Button
+          variant="outline"
+          className="w-full justify-start"
+          onClick={() => setShowChangePassword(true)}
+        >
+          <KeyRound className="h-4 w-4 mr-2" />
+          Wachtwoord wijzigen
+        </Button>
+      </div>
+
       {/* Admin link on mobile */}
       {isAdmin && (
         <Button
@@ -97,6 +112,12 @@ export default function Profile() {
         <LogOut className="h-4 w-4 mr-2" />
         Uitloggen
       </Button>
+
+      <ChangePasswordDialog
+        open={showChangePassword}
+        onOpenChange={setShowChangePassword}
+        userEmail={user.email || ""}
+      />
     </div>
   );
 }
