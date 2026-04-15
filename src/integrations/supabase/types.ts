@@ -14,16 +14,323 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      community_creations: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      creation_likes: {
+        Row: {
+          created_at: string
+          creation_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          creation_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          creation_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "creation_likes_creation_id_fkey"
+            columns: ["creation_id"]
+            isOneToOne: false
+            referencedRelation: "community_creations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crochet_events: {
+        Row: {
+          created_at: string
+          date: string
+          end_time: string
+          id: string
+          max_spots: number
+          start_time: string
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          end_time: string
+          id?: string
+          max_spots?: number
+          start_time: string
+          status?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          end_time?: string
+          id?: string
+          max_spots?: number
+          start_time?: string
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      event_registrations: {
+        Row: {
+          attended: boolean
+          created_at: string
+          event_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          attended?: boolean
+          created_at?: string
+          event_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          attended?: boolean
+          created_at?: string
+          event_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "crochet_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inspiration_posts: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          image_url: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      proposal_votes: {
+        Row: {
+          created_at: string
+          id: string
+          proposal_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          proposal_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          proposal_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proposal_votes_proposal_id_fkey"
+            columns: ["proposal_id"]
+            isOneToOne: false
+            referencedRelation: "proposals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      proposals: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          link: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      question_replies: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          question_id: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          question_id: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_replies_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      questions: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +457,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
