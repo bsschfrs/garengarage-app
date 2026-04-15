@@ -37,7 +37,7 @@ export default function CommunityQuestions() {
   const fetchQuestions = async () => {
     const { data } = await supabase
       .from("questions")
-      .select("*, profiles(full_name)")
+      .select("*")
       .order("created_at", { ascending: false });
 
     if (!data) return;
@@ -48,10 +48,15 @@ export default function CommunityQuestions() {
           .from("question_replies")
           .select("*", { count: "exact", head: true })
           .eq("question_id", q.id);
-        return { ...q, reply_count: count || 0 };
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", q.user_id)
+          .maybeSingle();
+        return { ...q, reply_count: count || 0, author_name: profile?.full_name || "Anoniem" };
       })
     );
-    setQuestions(withCounts);
+    setQuestions(withCounts as Question[]);
   };
 
   useEffect(() => { fetchQuestions(); }, []);
@@ -71,10 +76,17 @@ export default function CommunityQuestions() {
     setExpandedId(id);
     const { data } = await supabase
       .from("question_replies")
-      .select("*, profiles(full_name)")
+      .select("*")
       .eq("question_id", id)
       .order("created_at", { ascending: true });
-    setReplies(data || []);
+    if (!data) { setReplies([]); return; }
+    const withNames = await Promise.all(
+      data.map(async (r) => {
+        const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", r.user_id).maybeSingle();
+        return { ...r, author_name: profile?.full_name || "Anoniem" };
+      })
+    );
+    setReplies(withNames as Reply[]);
   };
 
   const handleReply = async (questionId: string) => {
@@ -124,7 +136,7 @@ export default function CommunityQuestions() {
             <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{q.body}</p>
             <div className="flex items-center justify-between mt-3">
               <span className="text-xs text-muted-foreground">
-                {q.profiles?.full_name || "Anoniem"} · {timeAgo(q.created_at)}
+                {q.author_name || "Anoniem"} · {timeAgo(q.created_at)}
               </span>
               <button onClick={() => toggleExpand(q.id)} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
                 <MessageCircle className="h-3.5 w-3.5" />{q.reply_count}
@@ -135,7 +147,7 @@ export default function CommunityQuestions() {
               <div className="mt-3 pt-3 border-t border-border space-y-3">
                 {replies.map((r) => (
                   <div key={r.id} className="text-xs">
-                    <span className="font-medium">{r.profiles?.full_name || "Anoniem"}</span>
+                    <span className="font-medium">{r.author_name || "Anoniem"}</span>
                     <span className="text-muted-foreground ml-2">{timeAgo(r.created_at)}</span>
                     <p className="text-muted-foreground mt-0.5">{r.body}</p>
                   </div>
