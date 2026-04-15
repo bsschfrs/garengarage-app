@@ -22,7 +22,7 @@ interface Registration {
   id: string;
   user_id: string;
   attended: boolean;
-  profiles: { full_name: string } | null;
+  author_name?: string;
 }
 
 export default function Admin() {
@@ -96,9 +96,16 @@ export default function Admin() {
     setViewRegsId(eventId);
     const { data } = await supabase
       .from("event_registrations")
-      .select("*, profiles(full_name)")
+      .select("*")
       .eq("event_id", eventId);
-    setRegistrations(data || []);
+    if (!data) { setRegistrations([]); return; }
+    const withNames = await Promise.all(
+      data.map(async (r) => {
+        const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", r.user_id).maybeSingle();
+        return { ...r, author_name: profile?.full_name || "Onbekend" };
+      })
+    );
+    setRegistrations(withNames as Registration[]);
   };
 
   const toggleAttendance = async (regId: string, current: boolean) => {

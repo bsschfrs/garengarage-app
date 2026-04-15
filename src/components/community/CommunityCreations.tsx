@@ -31,7 +31,7 @@ export default function CommunityCreations() {
   const fetchCreations = async () => {
     const { data } = await supabase
       .from("community_creations")
-      .select("*, profiles(full_name)")
+      .select("*")
       .order("created_at", { ascending: false });
 
     if (!data) return;
@@ -54,11 +54,13 @@ export default function CommunityCreations() {
           userLiked = !!like;
         }
 
-        return { ...c, like_count: count || 0, user_liked: userLiked };
+        const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", c.user_id).maybeSingle();
+
+        return { ...c, like_count: count || 0, user_liked: userLiked, author_name: profile?.full_name || "Anoniem" };
       })
     );
 
-    setCreations(withLikes);
+    setCreations(withLikes as Creation[]);
   };
 
   useEffect(() => { fetchCreations(); }, [user]);
@@ -139,7 +141,7 @@ export default function CommunityCreations() {
                 <h3 className="font-medium text-sm">{c.title}</h3>
                 <p className="text-xs text-muted-foreground mt-0.5">{c.caption}</p>
                 <p className="text-xs text-muted-foreground mt-2">
-                  {c.profiles?.full_name || "Anoniem"}
+                  {c.author_name || "Anoniem"}
                 </p>
               </div>
             </div>
