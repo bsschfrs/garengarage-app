@@ -9,6 +9,7 @@ import ChangePasswordDialog from "@/components/profile/ChangePasswordDialog";
 export default function Profile() {
   const { user, isAdmin, signOut, loading } = useAuth();
   const navigate = useNavigate();
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [profile, setProfile] = useState<{ full_name: string; avatar_url: string | null } | null>(null);
   const [attendanceCount, setAttendanceCount] = useState(0);
   const [proposalCount, setProposalCount] = useState(0);
