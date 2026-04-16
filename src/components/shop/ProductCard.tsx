@@ -35,7 +35,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link
       to={`/shop/product/${p.handle}`}
-      className="group rounded-xl bg-card border border-border overflow-hidden hover:shadow-md transition-shadow"
+      className="group rounded-xl bg-card border border-border overflow-hidden hover:shadow-md transition-shadow min-w-0"
     >
       <div className="aspect-square bg-muted overflow-hidden">
         {image ? (
@@ -52,7 +52,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         )}
       </div>
       <div className="p-3">
-        <h3 className="text-sm font-medium truncate">{p.title}</h3>
+        <h3 className="text-xs sm:text-sm font-medium truncate">{p.title}</h3>
         <div className="flex items-center justify-between mt-1.5">
           <span className="text-sm font-semibold">€{price}</span>
           <Button
