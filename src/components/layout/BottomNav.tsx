@@ -27,7 +27,11 @@ export default function BottomNav() {
           >
             {({ isActive }) => (
               <>
-                <tab.icon className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                {tab.icon ? (
+                  <tab.icon className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                ) : (
+                  <Icon iconNode={yarnBall} className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                )}
                 <span className={isActive ? "font-medium" : ""}>{tab.label}</span>
               </>
             )}

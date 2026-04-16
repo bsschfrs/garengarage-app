@@ -36,7 +36,11 @@ export default function DesktopSidebar({ isAdmin }: Props) {
               }`
             }
           >
-            <item.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+            {item.icon ? (
+              <item.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+            ) : (
+              <Icon iconNode={yarnBall} className="h-4.5 w-4.5" strokeWidth={1.8} />
+            )}
             <span>{item.label}</span>
           </NavLink>
         ))}
