@@ -1,11 +1,12 @@
-import { Home, ShoppingBag, Scissors, Users, User, Shield } from "lucide-react";
+import { Home, ShoppingBag, Users, User, Shield, Icon } from "lucide-react";
+import { yarnBall } from "@lucide/lab";
 import { NavLink } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const navItems = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/shop", icon: ShoppingBag, label: "Shop" },
-  { to: "/crochet-mee", icon: Scissors, label: "Crochet Mee" },
+  { to: "/crochet-mee", icon: null, label: "Crochet Mee" },
   { to: "/community", icon: Users, label: "Community" },
   { to: "/profiel", icon: User, label: "Profiel" },
 ];
