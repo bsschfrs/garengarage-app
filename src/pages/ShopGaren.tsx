@@ -62,9 +62,9 @@ export default function ShopGaren() {
       </div>
 
       {isLoading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3 min-w-0 overflow-x-hidden md:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="space-y-2">
+            <div key={i} className="min-w-0 space-y-2">
               <Skeleton className="aspect-square w-full rounded-xl" />
               <Skeleton className="h-4 w-3/4" />
               <Skeleton className="h-4 w-1/2" />
@@ -76,7 +76,7 @@ export default function ShopGaren() {
           <p className="text-sm text-muted-foreground">Geen producten gevonden.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3 min-w-0 overflow-x-hidden md:grid-cols-3 xl:grid-cols-4">
           {filtered.map((product) => (
             <ProductCard key={product.node.id} product={product} />
           ))}
