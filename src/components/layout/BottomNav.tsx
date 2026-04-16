@@ -1,10 +1,11 @@
-import { Home, ShoppingBag, Scissors, Users, User } from "lucide-react";
+import { Home, ShoppingBag, Users, User, Icon } from "lucide-react";
+import { yarnBall } from "@lucide/lab";
 import { NavLink } from "react-router-dom";
 
 const tabs = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/shop", icon: ShoppingBag, label: "Shop" },
-  { to: "/crochet-mee", icon: Scissors, label: "Crochet Mee" },
+  { to: "/crochet-mee", icon: null, label: "Crochet Mee" },
   { to: "/community", icon: Users, label: "Community" },
   { to: "/profiel", icon: User, label: "Profiel" },
 ];
@@ -26,7 +27,11 @@ export default function BottomNav() {
           >
             {({ isActive }) => (
               <>
-                <tab.icon className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                {tab.icon ? (
+                  <tab.icon className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                ) : (
+                  <Icon iconNode={yarnBall} className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.6} />
+                )}
                 <span className={isActive ? "font-medium" : ""}>{tab.label}</span>
               </>
             )}
