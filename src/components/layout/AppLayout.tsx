@@ -9,8 +9,8 @@ export default function AppLayout() {
   return (
     <div className="flex min-h-screen w-full">
       <DesktopSidebar isAdmin={isAdmin} />
-      <main className="flex-1 pb-20 md:pb-0">
-        <div className="mx-auto max-w-2xl px-4 py-6 md:px-6 md:py-8">
+      <main className="flex-1 min-w-0 w-full pb-20 md:pb-0">
+        <div className="mx-auto w-full max-w-2xl min-w-0 px-4 py-6 md:px-6 md:py-8">
           <Outlet />
         </div>
       </main>
